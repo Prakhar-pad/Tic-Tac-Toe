@@ -22,6 +22,18 @@ export default function App() {
     getStyle8: { width: '20px' },
     getStyle9: { width: '20px' },
   };
+  const styleObj2 = {
+    getStyle1: { width: '20px', backgroundColor: 'red' },
+    getStyle2: { width: '20px', backgroundColor: 'red' },
+    getStyle3: { width: '20px', backgroundColor: 'red' },
+    getStyle4: { width: '20px', backgroundColor: 'red' },
+    getStyle5: { width: '20px', backgroundColor: 'red' },
+    getStyle6: { width: '20px', backgroundColor: 'red' },
+    getStyle7: { width: '20px', backgroundColor: 'red' },
+    getStyle8: { width: '20px', backgroundColor: 'red' },
+    getStyle9: { width: '20px', backgroundColor: 'red' },
+  };
+
   const [styleCell, setStyleCell] = useState(styleObj);
   const obj = {
     1: '',
@@ -51,6 +63,12 @@ export default function App() {
   useEffect(() => {
     win();
   }, [buttonFlag]);
+
+  useEffect(() => {
+    count === 9 && winner === '' && setStyleCell(styleObj2);
+    count === 9 && winner === '' && setButtonFlag(true);
+    count === 9 && winner === '' && setText('Match Tied');
+  }, [count]);
 
   const win = () => {
     const arr = winner.split('');
@@ -111,52 +129,58 @@ export default function App() {
   // winner !== '' && win();
 
   const clickHandler = (value) => {
-    setCount(count + 1);
-    if (count % 2 == 0) {
-      crossArray.push(value);
-
-      setCrossArray(crossArray);
-      if (value === 1) {
-        setFoo({ ...foo, 1: 'X' });
-      } else if (value === 2) {
-        setFoo({ ...foo, 2: 'X' });
-      } else if (value === 3) {
-        setFoo({ ...foo, 3: 'X' });
-      } else if (value === 4) {
-        setFoo({ ...foo, 4: 'X' });
-      } else if (value === 5) {
-        setFoo({ ...foo, 5: 'X' });
-      } else if (value === 6) {
-        setFoo({ ...foo, 6: 'X' });
-      } else if (value === 7) {
-        setFoo({ ...foo, 7: 'X' });
-      } else if (value === 8) {
-        setFoo({ ...foo, 8: 'X' });
-      } else if (value === 9) {
-        setFoo({ ...foo, 9: 'X' });
-      }
-    } else if (count % 2 != 0) {
-      zeroArray.push(value);
-
-      setZeroArray(zeroArray);
-      if (value === 1) {
-        setFoo({ ...foo, 1: 'O' });
-      } else if (value === 2) {
-        setFoo({ ...foo, 2: 'O' });
-      } else if (value === 3) {
-        setFoo({ ...foo, 3: 'O' });
-      } else if (value === 4) {
-        setFoo({ ...foo, 4: 'O' });
-      } else if (value === 5) {
-        setFoo({ ...foo, 5: 'O' });
-      } else if (value === 6) {
-        setFoo({ ...foo, 6: 'O' });
-      } else if (value === 7) {
-        setFoo({ ...foo, 7: 'O' });
-      } else if (value === 8) {
-        setFoo({ ...foo, 8: 'O' });
-      } else if (value === 9) {
-        setFoo({ ...foo, 9: 'O' });
+    winner !== '' && alert('Game is Over, Click Play Again button');
+    winner === '' &&
+      count === 9 &&
+      alert('Match Tied, Click Play Again button');
+    if (foo[value] === '') {
+      setCount(count + 1);
+      if (count % 2 == 0) {
+        crossArray.push(value);
+        setText("O's turns -");
+        setCrossArray(crossArray);
+        if (value === 1) {
+          setFoo({ ...foo, 1: 'X' });
+        } else if (value === 2) {
+          setFoo({ ...foo, 2: 'X' });
+        } else if (value === 3) {
+          setFoo({ ...foo, 3: 'X' });
+        } else if (value === 4) {
+          setFoo({ ...foo, 4: 'X' });
+        } else if (value === 5) {
+          setFoo({ ...foo, 5: 'X' });
+        } else if (value === 6) {
+          setFoo({ ...foo, 6: 'X' });
+        } else if (value === 7) {
+          setFoo({ ...foo, 7: 'X' });
+        } else if (value === 8) {
+          setFoo({ ...foo, 8: 'X' });
+        } else if (value === 9) {
+          setFoo({ ...foo, 9: 'X' });
+        }
+      } else if (count % 2 != 0) {
+        zeroArray.push(value);
+        setText("X's turns -");
+        setZeroArray(zeroArray);
+        if (value === 1) {
+          setFoo({ ...foo, 1: 'O' });
+        } else if (value === 2) {
+          setFoo({ ...foo, 2: 'O' });
+        } else if (value === 3) {
+          setFoo({ ...foo, 3: 'O' });
+        } else if (value === 4) {
+          setFoo({ ...foo, 4: 'O' });
+        } else if (value === 5) {
+          setFoo({ ...foo, 5: 'O' });
+        } else if (value === 6) {
+          setFoo({ ...foo, 6: 'O' });
+        } else if (value === 7) {
+          setFoo({ ...foo, 7: 'O' });
+        } else if (value === 8) {
+          setFoo({ ...foo, 8: 'O' });
+        } else if (value === 9) {
+          setFoo({ ...foo, 9: 'O' });
+        }
       }
     }
 
@@ -167,9 +191,8 @@ export default function App() {
       match.includes(a) && setText('X is the Winner');
       match.includes(a) && setButtonFlag(true);
       match.includes(a) && setWinner(a);
-    } else {
-      text == "X's turns -" ? setText("O's turns -") : setText("X's turns -");
     }
+
     if (zeroArray.length === 3) {
       zeroArray.sort();
       const b = zeroArray.join('');
